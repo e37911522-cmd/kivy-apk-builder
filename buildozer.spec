@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = My App
+title = My Application
 
 # (str) Package name
 package.name = myapp
@@ -9,17 +9,17 @@ package.name = myapp
 # (str) Package domain (needed for android packaging)
 package.domain = org.test
 
-# (list) Source files to include (let empty to include all files)
+# (list) Source files to include (let it empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas
 
-# (list) List of directory to include (let empty to include all)
-source.include_dirs = 
+# (list) List of inclusions using pattern matching
+#source.include_pattern = assets/*.png,images/*.png
 
-# (list) List of exclusions to pack
-source.exclude_exts = spec
+# (list) Source files to exclude (let it empty to exclude nothing)
+#source.exclude_exts = spec
 
-# (list) List of exclusion patterns
-source.exclude_patterns = license, images/*/*.jpg
+# (list) List of exclusion patterns using pattern matching
+#source.exclude_pattern = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
 version = 0.1
@@ -30,42 +30,26 @@ requirements = python3,kivy
 
 # (list) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-# requirements.source.dir = ../../../kivy
+# requirements.source.recipename = ../../source/recipename
 
-# (list) Permissions
-#android.permissions = INTERNET
+# (str) Icon of the application
+#icon.filename = %(source.dir)s/data/icon.png
 
-# (str) Architectural to build for, options: armeabi-v7a, arm64-v8a, x86, x86_64
-# Оставляем только arm64-v8a для стабильности сборки
-android.archs = arm64-v8a
-
-# (list) Bootstrap to use for android builds
-# p4a bootstrap to use: sdl2, webview
-# p4a.bootstrap = sdl2
-
-# (int) Target Android API, should be as high as possible.
-android.api = 33
-
-# (int) Minimum API your APK will support.
-android.minapi = 24
-
-# (str) Android NDK version to use
-android.ndk = 25b
-
-# (bool) Use --private data storage (True) or --public storage (False)
-# android.private_storage = True
-
-# (str) Supported orientations (landscape, portrait, all)
+# (str) Supported orientation (landscape, portrait, all)
 orientation = portrait
 
-# (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
+# (list) List of service to declare
+#services = NAME:ENTRYPOINT_TO_PYTHON_SCRIPT,NAME2:ENTRYPOINT_TO_PYTHON_SCRIPT2
 
-# (string) Presplash background color
-# android.presplash_color = #FFFFFF
+#
+# OSX Specific
+#
 
-# (string) Icon background color
-# android.icon_background_color = #FFFFFF
+#
+# Author: Name/Organization to be displayed on the application about dialog
+#
+#osx.package.domain = org.kivy
+#osx.sign.identity = 3rd Party Mac Developer Application: PyGame Developer (HX2AQWDXZ9)
 
 
 [buildozer]
@@ -73,5 +57,14 @@ fullscreen = 0
 # (int) Log level (0 = error, 1 = info, 2 = debug (with command output))
 log_level = 2
 
-# (int) Display warning if buildozer is run as root (0 = False, 1 = True)
+# (int) Display warning if buildozer is run as root (0 = False, 1 = 1 = True)
 warn_on_root = 1
+
+# (str) Path to build artifact storage, absolute or relative to spec file
+#bin_dir = ./bin
+
+# (str) Path to build output (defaults to ./bin)
+#build_dir = .buildozer
+
+# (str) Dir where source files are located
+source.dir = .
