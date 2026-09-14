@@ -11,11 +11,13 @@ orientation = portrait
 # Автоматическое принятие лицензий SDK
 android.accept_sdk_license = True
 
-# Фиксация рабочих версий API и NDK для стабильной сборки
+# Версии API
 android.api = 33
 android.minapi = 24
-android.ndk = 25b
-android.sdk = 31
+
+# Явное указание путей к системным SDK и NDK из GitHub Actions
+android.sdk_path = /usr/local/lib/android/sdk
+android.ndk_path = /usr/local/lib/android/sdk/ndk/27.3.13750724
 
 [buildozer]
 log_level = 2
