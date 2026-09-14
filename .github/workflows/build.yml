@@ -1,12 +1,14 @@
-name: CI
+name: CI Build APK
 
 on:
   push:
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
@@ -17,26 +19,46 @@ jobs:
       with:
         python-version: '3.10'
 
+    # КРИТИЧЕСКИ ВАЖНО: Установка Java 11 для сборки Android пакетов
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '17'
-
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+        java-version: '11'
 
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential ccache git libffi-dev libssl-dev python3-pip python3-setuptools python3-virtualenv unzip wget
+        sudo apt-get install -y \
+          python3-pip \
+          build-extras \
+          ccache \
+          libffi-dev \
+          libssl-dev \
+          git \
+          zip \
+          unzip \
+          autoconf \
+          libtool \
+          pkg-config \
+          zlib1g-dev \
+          libncurses5-dev \
+          libncursesw5-dev \
+          libreadline-dev
 
-    - name: Install Buildozer and Cython
+    - name: Install Buildozer and dependencies
       run: |
         pip install --upgrade pip
-        pip install --user buildozer cython==0.29.36
+        pip install --upgrade buildozer cython==0.29.36
 
     - name: Build with Buildozer
-      run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        buildozer -v android debug
+      uses: ArtemSBulgakov/buildozer-action@v1
+      id: buildozer
+      with:
+        command: buildozer -v android debug
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: package
+        path: bin/*.apk
