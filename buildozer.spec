@@ -1,16 +1,19 @@
 [app]
 
 # (str) Title of your application
-title = Помогатор 3 тысячи
+title = porikol
 
 # (str) Package name
-package.name = pomogator
+package.name = porikol
 
 # (str) Package domain (needed for android packaging)
-package.domain = org.pomogator
+package.domain = org.porikol
 
 # (str) Source code where the main.py lives
 source.dir = .
+
+# (str) Entry point of your application (указываем ваш файл porikol.py)
+source.main_filename = porikol.py
 
 # (list) Source files to include (let it empty to include all files)
 source.include_exts = py,png,jpg,kv,atlas
