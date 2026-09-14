@@ -23,6 +23,9 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -35,6 +38,5 @@ jobs:
 
     - name: Build with Buildozer
       run: |
-        # Добавляем путь к pipx/local bin, если нужно
         export PATH="$HOME/.local/bin:$PATH"
         buildozer -v android debug
